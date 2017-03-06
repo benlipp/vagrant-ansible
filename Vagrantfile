@@ -41,5 +41,16 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  config.vm.define "balancer" do |box|
+    box.vm.box_url = "bento/ubuntu-16.04"
+    box.vm.network :private_network, ip: "192.168.56.103"
+    box.vm.network :forwarded_port, guest: 22, host: 10322, id: "ssh"
+    box.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--name", "va-balancer"]
+    end
+  end
+
 
 end

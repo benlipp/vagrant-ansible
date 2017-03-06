@@ -1,6 +1,13 @@
 ---
 - hosts: webservers
   roles:
-  - common
-  - geerlingguy.composer
-  - webservers
+    - common
+    - geerlingguy.composer
+    - webservers
+
+- hosts: dbservers
+  roles:
+    - common
+    - role: geerlingguy.mysql
+      become: yes
+    - dbservers

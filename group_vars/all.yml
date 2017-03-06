@@ -1,0 +1,7 @@
+---
+app_name: "Test Application"
+
+db:
+  user: test
+  password: secret
+  database: test

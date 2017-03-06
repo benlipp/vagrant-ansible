@@ -1,4 +1,4 @@
 ---
 composer_keep_updated: true
-composer_home_owner: www-data
-composer_home_group: www-data
+composer_home_owner: vagrant
+composer_home_group: vagrant

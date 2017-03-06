@@ -1,0 +1,23 @@
+---
+# - name: install mysql
+#   apt: name={{ item }} state=latest
+#   with_items:
+#     - mysql-server
+#     - python-mysqldb
+#   become: yes
+
+- name: add a mysql db for the app
+  mysql_db:
+    name: "{{ db.database }}"
+    login_user: root
+    login_password: root
+  become: yes
+
+- name: set up mysql user for the app
+  mysql_user:
+    name: "{{ db.user }}"
+    password: "{{ db.password }}"
+    priv: '{{ db.database }}.*:ALL,GRANT'
+    login_user: root
+    login_password: root
+  become: yes
