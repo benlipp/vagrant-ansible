@@ -1,0 +1,6 @@
+[webservers]
+tyranus ansible_host=blippincott.servequake.com ansible_port=10122 ansible_user=vagrant
+sidious ansible_host=blippincott.servequake.com ansible_port=10222 ansible_user=vagrant
+
+[dbservers]
+maul ansible_host=blippincott.servequake.com ansible_port=10022 ansible_user=vagrant

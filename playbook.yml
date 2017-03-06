@@ -1,0 +1,6 @@
+---
+- hosts: webservers
+  roles:
+  - common
+  - geerlingguy.composer
+  - webservers

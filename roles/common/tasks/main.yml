@@ -1,0 +1,8 @@
+---
+- name: make sure aptitude is installed (needed for some apt commands)
+  apt: name=aptitude state=latest
+  become: yes
+
+- name: make sure we have full updated packages
+  apt: upgrade=safe
+  become: yes

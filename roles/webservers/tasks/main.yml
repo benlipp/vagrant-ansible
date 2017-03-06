@@ -1,0 +1,57 @@
+---
+- name: be sure php repo is installed
+  apt_repository: "repo=ppa:ondrej/php state=present"
+  become: yes
+
+- name: be sure php is installed
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+  - apache2
+  - libapache2-mod-php7.0
+  - php7.0
+  - php7.0-mbstring
+  - php7.0-mysql
+  - php7.0-xml
+  - php7.0-curl
+  - git
+  become: yes
+
+- name: be sure php7 module is enabled
+  apache2_module:
+    name: php7.0
+    state: present
+  notify: "restart apache"
+  become: yes
+
+# let's get laravel installed
+- name: create /var/www directory
+  file:
+    dest: /var/www/
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: www-data
+    mode: 0775
+  become: yes
+
+- name: clone laravel repo
+  git:
+    dest: /var/www/laravel
+    repo: https://github.com/laravel/laravel.git
+    update: no
+  become: yes
+  become_user: vagrant
+
+- name: give repo correct permissions
+  file:
+    dest: /var/www/laravel/
+    state: directory
+    owner: vagrant
+    group: www-data
+    mode: 0775
+    recurse: yes
+  become: yes
+
+- name: composer install
+  composer: "command=install working_dir=/var/www/laravel"
+  become: yes
+  become_user: vagrant
